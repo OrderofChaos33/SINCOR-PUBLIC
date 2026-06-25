@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing â€” SINCOR Competitive Intelligence</title>
+    <link rel="icon" type="image/svg+xml" href="/static/sincor_favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #050508;
+            --surface: #0d0d15;
+            --surface2: #12121f;
+            --border: rgba(255,255,255,0.08);
+            --purple: #7c3aed;
+            --purple-light: #a78bfa;
+            --blue: #2563eb;
+            --green: #10b981;
+            --gold: #f59e0b;
+            --text: #e2e8f0;
+            --muted: #64748b;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+        }
+        nav {
+            background: rgba(5,5,8,0.95);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            font-family: monospace;
+        }
+        .nav-logo span { color: var(--purple-light); }
+        .nav-back { color: var(--muted); text-decoration: none; font-size: 14px; }
+        .nav-back:hover { color: var(--text); }
+
+        .hero {
+            text-align: center;
+            padding: 80px 32px 48px;
+        }
+        .hero-eyebrow {
+            display: inline-block;
+            background: rgba(124,58,237,0.15);
+            color: var(--purple-light);
+            border: 1px solid rgba(124,58,237,0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .hero h1 span { color: var(--purple-light); }
+        .hero p {
+            font-size: 18px;
+            color: var(--muted);
+            max-width: 560px;
+            margin: 0 auto 12px;
+        }
+
+        .pricing-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        @media (max-width: 640px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+
+        .plan-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 32px;
+            position: relative;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .plan-card:hover {
+            border-color: rgba(124,58,237,0.4);
+            transform: translateY(-2px);
+        }
+        .plan-card.featured {
+            border-color: var(--purple);
+            background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(37,99,235,0.08));
+        }
+        .plan-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--purple);
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .plan-name {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .plan-price {
+            font-size: 52px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .plan-price sup {
+            font-size: 24px;
+            vertical-align: super;
+        }
+        .plan-cadence {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+        .plan-desc {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 28px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .plan-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        .plan-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .chk {
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .btn-plan {
+            display: block;
+            width: 100%;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-plan-primary {
+            background: var(--purple);
+            color: #fff;
+        }
+        .btn-plan-primary:hover { background: #6d28d9; transform: translateY(-1px); }
+        .btn-plan-outline {
+            background: transparent;
+            color: var(--purple-light);
+            border: 1px solid rgba(124,58,237,0.5);
+        }
+        .btn-plan-outline:hover { border-color: var(--purple); color: #fff; }
+
+        /* What's included detail */
+        .report-detail {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .report-detail h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .report-detail .subtitle {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 32px;
+        }
+        .report-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .report-item {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .report-item-icon { font-size: 24px; margin-bottom: 10px; }
+        .report-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+        .report-item p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+        /* FAQ */
+        .faq { margin-top: 48px; }
+        .faq h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .faq-q {
+            padding: 18px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-q:hover { background: var(--surface2); }
+        .faq-a {
+            display: none;
+            padding: 0 20px 18px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .faq-item.open .faq-a { display: block; }
+        .faq-icon { color: var(--purple-light); font-size: 20px; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+        /* Guarantee */
+        .guarantee {
+            text-align: center;
+            background: rgba(16,185,129,0.08);
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 40px;
+        }
+        .guarantee h3 { font-size: 20px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+        .guarantee p { color: var(--muted); font-size: 15px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-logo">SINC<span>OR</span></a>
+        <a href="/" class="nav-back">â† Back to Home</a>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-eyebrow">Simple, Honest Pricing</div>
+        <h1>Know What Your Competitors<br>Are Doing for <span>$49</span></h1>
+        <p>One-time competitive report or stay ahead every month. No fluff, no enterprise BS â€” just actionable intelligence.</p>
+    </div>
+
+    <div class="pricing-section">
+        <div class="pricing-grid">
+            <!-- One-Time Report -->
+            <div class="plan-card">
+                <div class="plan-name">One-Time Report</div>
+                <div class="plan-price"><sup>$</sup>49</div>
+                <div class="plan-cadence">one-time Â· delivered within 24 hours</div>
+                <div class="plan-desc">Get a full competitive intelligence report on your market. See what your top 3â€“5 competitors are doing and where the gaps are.</div>
+                <ul class="plan-features">
+                    <li><span class="chk">âœ“</span>Top 3â€“5 competitors analyzed</li>
+                    <li><span class="chk">âœ“</span>Pricing comparison</li>
+                    <li><span class="chk">âœ“</span>Review &amp; reputation breakdown</li>
+                    <li><span class="chk">âœ“</span>Online presence &amp; SEO snapshot</li>
+                    <li><span class="chk">âœ“</span>Marketing &amp; social media activity</li>
+                    <li><span class="chk">âœ“</span>3 clear opportunities to act on</li>
+                    <li><span class="chk">âœ“</span>PDF report delivered by email</li>
+                </ul>
+                <a href="/buy?plan=report" class="btn-plan btn-plan-outline">Get My Report — pay in AXM</a>
+            </div>
+
+            <!-- Monthly Subscription -->
+            <div class="plan-card featured">
+                <div class="plan-badge">Best Value</div>
+                <div class="plan-name">Monthly Intelligence</div>
+                <div class="plan-price"><sup>$</sup>149</div>
+                <div class="plan-cadence">per month Â· cancel anytime</div>
+                <div class="plan-desc">Stay ahead of your market every month. Fresh competitive intel so you always know what's changing and can move before your competitors do.</div>
+                <ul class="plan-features">
+                    <li><span class="chk">âœ“</span>Everything in the one-time report</li>
+                    <li><span class="chk">âœ“</span>Fresh report delivered monthly</li>
+                    <li><span class="chk">âœ“</span>Track competitor changes over time</li>
+                    <li><span class="chk">âœ“</span>New competitor alerts (if someone enters your market)</li>
+                    <li><span class="chk">âœ“</span>Pricing trend analysis</li>
+                    <li><span class="chk">âœ“</span>Priority email support</li>
+                    <li><span class="chk">âœ“</span>Cancel anytime, no lock-in</li>
+                </ul>
+                <a href="/buy?plan=intel" class="btn-plan btn-plan-primary">Start Monthly Intel — pay in SINC</a>
+            </div>
+        </div>
+
+        <!-- What's in the report -->
+        <div class="report-detail">
+            <h2>ðŸ“Š What's Inside Every Report</h2>
+            <p class="subtitle">A real competitive intelligence report â€” not a generic AI summary. Built from live data on your specific market.</p>
+            <div class="report-sections">
+                <div class="report-item">
+                    <div class="report-item-icon">ðŸ’°</div>
+                    <h4>Pricing Intelligence</h4>
+                    <p>What your competitors charge, how they package their services, and where you're positioned.</p>
+                </div>
+                <div class="report-item">
+                    <div class="report-item-icon">â­</div>
+                    <h4>Reputation Analysis</h4>
+                    <p>Review scores, common complaints, what customers love â€” and what they hate about your rivals.</p>
+                </div>
+                <div class="report-item">
+                    <div class="report-item-icon">ðŸ”</div>
+                    <h4>Online Presence</h4>
+                    <p>Website quality, SEO keywords they're winning, Google rankings, and digital footprint.</p>
+                </div>
+                <div class="report-item">
+                    <div class="report-item-icon">ðŸ“£</div>
+                    <h4>Marketing Activity</h4>
+                    <p>How they advertise, what social content performs, and where they're investing attention.</p>
+                </div>
+                <div class="report-item">
+                    <div class="report-item-icon">ðŸŽ¯</div>
+                    <h4>Market Gaps</h4>
+                    <p>Specific opportunities your competitors are missing that you can move on immediately.</p>
+                </div>
+                <div class="report-item">
+                    <div class="report-item-icon">ðŸ“‹</div>
+                    <h4>Action Plan</h4>
+                    <p>3 concrete things you can do in the next 30 days to gain a competitive edge.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guarantee -->
+        <div class="guarantee">
+            <h3>ðŸ›¡ï¸ Satisfaction Guarantee</h3>
+            <p>If the report doesn't give you at least one actionable insight you can use, we'll refund you. No questions asked.</p>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq">
+            <h2>Questions?</h2>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+                    What industries do you cover?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-a">We specialize in local service businesses: med spas, gyms, fitness studios, real estate agents, salons, dental practices, and similar businesses. If you're not sure if we cover your niche, email us at support@getsincor.com before buying.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+                    How long does it take to get my report?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-a">Reports are delivered within 24 hours of your purchase. Most come back in under 12 hours. You'll receive the PDF by email as soon as it's ready.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+                    What do I need to provide?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-a">Just your business name, location (city/zip), and industry. After checkout you'll fill out a short form and we take it from there. No technical setup required.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+                    Can I cancel my monthly subscription?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-a">Yes. SINC subscriptions are wallet-based — stop renewing at <a href="/buy">/buy</a> or cancel from <a href="/billing">/billing</a>. Access continues until your paid period ends.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+                    What if I'm not satisfied with my report?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-a">We offer a Satisfaction Guarantee. If the report doesn't give you at least one actionable insight you can use, reply to your delivery email and we'll refund you in full.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

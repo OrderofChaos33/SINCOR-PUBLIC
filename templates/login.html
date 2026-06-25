@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in — SINCOR</title>
+  <link rel="icon" type="image/png" href="/static/sincor_favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0a0e27; --purple:#8b5cf6; --cyan:#06b6d4; --text:#f1f5f9; --muted:#94a3b8; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--bg); color:var(--text); font-family:'Plus Jakarta Sans',sans-serif; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .card { width:100%; max-width:440px; background:rgba(255,255,255,.04); border:1px solid rgba(139,92,246,.25); border-radius:16px; padding:36px 32px; }
+    .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; }
+    .top a { color:var(--cyan); text-decoration:none; font-weight:600; font-size:14px; }
+    h1 { font-family:'Sora',sans-serif; font-size:26px; margin-bottom:8px; }
+    p.sub { color:var(--muted); font-size:15px; margin-bottom:24px; line-height:1.5; }
+    label { display:block; font-size:13px; font-weight:600; color:var(--muted); margin-bottom:8px; }
+    input[type=email] { width:100%; padding:14px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.15); background:rgba(0,0,0,.2); color:var(--text); font-size:15px; margin-bottom:16px; }
+    .btn { width:100%; padding:14px; border:none; border-radius:10px; background:linear-gradient(135deg,var(--purple),#6d28d9); color:#fff; font-weight:700; font-size:15px; cursor:pointer; }
+    .btn:hover { filter:brightness(1.08); }
+    .oauth { display:flex; flex-direction:column; gap:10px; margin-top:8px; }
+    .oauth a { display:flex; align-items:center; justify-content:center; gap:10px; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,.15); color:var(--text); text-decoration:none; font-weight:600; font-size:14px; }
+    .oauth a:hover { background:rgba(255,255,255,.06); }
+    .divider { display:flex; align-items:center; gap:12px; margin:22px 0; color:var(--muted); font-size:12px; }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,.1); }
+    .msg { padding:12px 14px; border-radius:8px; margin-bottom:16px; font-size:14px; }
+    .msg.err { background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.35); color:#fca5a5; }
+    .foot { margin-top:24px; text-align:center; font-size:14px; color:var(--muted); }
+    .foot a { color:var(--cyan); font-weight:600; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="top">
+      <a href="/">← Home</a>
+      <a href="/signup">Sign up</a>
+    </div>
+    <h1>Welcome back</h1>
+    <p class="sub">Enter the email you used to sign up. No password — wallet-native billing on Base.</p>
+
+    {% if error or oauth_error %}
+    <div class="msg err">{{ oauth_error or error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/login">
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" required placeholder="you@company.com" autocomplete="email">
+      <button type="submit" class="btn">Continue to dashboard →</button>
+    </form>
+
+    {% if oauth_google or oauth_github %}
+    <div class="divider">or</div>
+    <div class="oauth">
+      {% if oauth_google %}
+      <a href="/auth/google">Continue with Google</a>
+      {% endif %}
+      {% if oauth_github %}
+      <a href="/auth/github">Continue with GitHub</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="foot">
+      New here? <a href="/signup">Deploy your team</a> · <a href="/contact">Contact sales</a>
+    </div>
+  </div>
+</body>
+</html>
